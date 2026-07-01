@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post">
+
+<label>Front</label>
+
+<textarea
+name="front"
+rows="3">{{ card.front if card else "" }}</textarea>
+
+<label>Definition</label>
+
+<textarea
+name="definition"
+rows="6">{{ card.definition if card else "" }}</textarea>
+
+<label>Notes</label>
+
+<textarea
+name="notes"
+rows="6">{{ card.notes if card else "" }}</textarea>
+
+<button type="submit">
+
+Save
+
+</button>
+
+</form>
+
+{% endblock %}

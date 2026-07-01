@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if not card %}
+
+<p>No cards yet.</p>
+
+{% else %}
+
+<div class="review">
+
+{% if side=="front" %}
+
+<h2>{{ card.front }}</h2>
+
+<p>
+
+<a class="button"
+href="{{ url_for('show_back', card_id=card.id) }}">
+Show Answer
+</a>
+
+</p>
+
+{% else %}
+
+<h2>{{ card.front }}</h2>
+
+<hr>
+
+<p>{{ card.definition }}</p>
+
+<hr>
+
+<p>{{ card.notes }}</p>
+
+<p>
+
+<a class="button"
+href="{{ url_for('show_front', card_id=card.id) }}">
+Front
+</a>
+
+</p>
+
+{% endif %}
+
+<p>
+
+<a class="button"
+href="{{ url_for('next_card') }}">
+Next Card
+</a>
+
+</p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
