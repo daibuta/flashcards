@@ -23,18 +23,9 @@ class Card(db.Model):
     remembered = db.Column(db.Boolean, default=False, nullable=False)
 
 
-def ensure_remembered_column():
-    engine = db.get_engine()
-    with engine.connect() as connection:
-        result = connection.execute("PRAGMA table_info(card)")
-        columns = [row[1] for row in result]
-        if "remembered" not in columns:
-            connection.execute("ALTER TABLE card ADD COLUMN remembered BOOLEAN NOT NULL DEFAULT 0")
-
 
 with app.app_context():
     db.create_all()
-    ensure_remembered_column()
 
 
 @app.route("/")
