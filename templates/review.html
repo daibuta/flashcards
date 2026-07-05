@@ -12,17 +12,18 @@
 
 {% if side=="front" %}
 
-<h2>{{ card.front }}</h2>
-
 <p>
 <label class="remembered-field">
   <input type="checkbox"
          class="remembered-checkbox"
          data-card-id="{{ card.id }}"
          {% if card.remembered %}checked{% endif %}>
-  Remembered
+  <!-- Remembered -->
 </label>
 </p>
+
+<h2>{{ card.front }}</h2>
+
 
 <p>
 
@@ -39,21 +40,22 @@ Flip
 
 <hr> -->
 
-<p>{{ card.definition }}</p>
-
-<hr>
-
-<p>{{ card.notes }}</p>
-
 <p>
 <label class="remembered-field">
   <input type="checkbox"
          class="remembered-checkbox"
          data-card-id="{{ card.id }}"
          {% if card.remembered %}checked{% endif %}>
-  Remembered
+  <!-- Remembered -->
 </label>
 </p>
+
+<p>{{ card.definition }}</p>
+
+<hr>
+
+<p>{{ card.notes }}</p>
+
 
 <p>
 
