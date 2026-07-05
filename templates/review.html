@@ -15,6 +15,16 @@
 <h2>{{ card.front }}</h2>
 
 <p>
+<label class="remembered-field">
+  <input type="checkbox"
+         class="remembered-checkbox"
+         data-card-id="{{ card.id }}"
+         {% if card.remembered %}checked{% endif %}>
+  Remembered
+</label>
+</p>
+
+<p>
 
 <a class="button"
 href="{{ url_for('show_back', card_id=card.id) }}">
@@ -34,6 +44,16 @@ Flip
 <hr>
 
 <p>{{ card.notes }}</p>
+
+<p>
+<label class="remembered-field">
+  <input type="checkbox"
+         class="remembered-checkbox"
+         data-card-id="{{ card.id }}"
+         {% if card.remembered %}checked{% endif %}>
+  Remembered
+</label>
+</p>
 
 <p>
 

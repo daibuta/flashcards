@@ -34,6 +34,38 @@
 
 </div>
 
+<script>
+(function() {
+  function updateRemembered(cardId, remembered) {
+    return fetch('/remembered/' + cardId, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ remembered: remembered }),
+    });
+  }
+
+  function handleCheckbox(event) {
+    var checkbox = event.target;
+    if (!checkbox.classList.contains('remembered-checkbox')) {
+      return;
+    }
+    var cardId = checkbox.dataset.cardId;
+    if (!cardId) {
+      return;
+    }
+    updateRemembered(cardId, checkbox.checked).catch(function(error) {
+      console.error('Unable to save remembered state', error);
+      checkbox.checked = !checkbox.checked;
+      alert('Could not save remembered state. Please try again.');
+    });
+  }
+
+  document.addEventListener('change', handleCheckbox);
+})();
+</script>
+
 </body>
 
 </html>

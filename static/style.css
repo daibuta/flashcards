@@ -56,6 +56,19 @@ button,
     font-size: 16px;
 }
 
+.remembered-field {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+    font-size: 16px;
+}
+
+.remembered-field input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
 hr {
 
     margin: 20px 0;

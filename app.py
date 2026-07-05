@@ -1,6 +1,6 @@
 import random
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -20,9 +20,21 @@ class Card(db.Model):
 
     notes = db.Column(db.Text, default="")
 
+    remembered = db.Column(db.Boolean, default=False, nullable=False)
+
+
+def ensure_remembered_column():
+    engine = db.get_engine()
+    with engine.connect() as connection:
+        result = connection.execute("PRAGMA table_info(card)")
+        columns = [row[1] for row in result]
+        if "remembered" not in columns:
+            connection.execute("ALTER TABLE card ADD COLUMN remembered BOOLEAN NOT NULL DEFAULT 0")
+
 
 with app.app_context():
     db.create_all()
+    ensure_remembered_column()
 
 
 @app.route("/")
@@ -122,6 +134,25 @@ def next_card():
     card = random.choice(cards)
 
     return redirect(url_for("show_front", card_id=card.id))
+
+
+@app.route("/remembered/<int:card_id>", methods=["POST"])
+def toggle_remembered(card_id):
+    card = Card.query.get_or_404(card_id)
+    data = request.get_json(silent=True) or {}
+    remembered = data.get("remembered", request.form.get("remembered"))
+
+    if remembered is None:
+        return jsonify({"success": False, "error": "Missing remembered flag"}), 400
+
+    if isinstance(remembered, bool):
+        card.remembered = remembered
+    else:
+        card.remembered = str(remembered) in ("1", "true", "True", "yes", "on")
+
+    db.session.commit()
+
+    return jsonify({"success": True, "remembered": card.remembered})
 
 
 if __name__ == "__main__":
