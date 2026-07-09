@@ -33,6 +33,10 @@ def index():
     cards = Card.query.order_by(Card.id.desc()).all()
     return render_template("index.html", cards=cards)
 
+@app.route("/list_tts")
+def list_tts():
+    cards = Card.query.order_by(Card.id.desc()).all()
+    return render_template("list_tts.html", cards=cards)
 
 @app.route("/new", methods=["GET", "POST"])
 def new_card():
