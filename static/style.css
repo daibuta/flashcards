@@ -35,6 +35,11 @@ nav {
     text-align: center;
 }
 
+.review h2,
+.review p {
+    white-space: pre-wrap;
+}
+
 textarea {
 
     width: 100%;

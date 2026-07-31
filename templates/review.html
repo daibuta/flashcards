@@ -22,7 +22,7 @@
 </label>
 </p>
 
-<h2>{{ card.front }}</h2>
+<h2>{{ card.front|replace('\r\n', '\n')|replace('\r', '\n')|replace('\n', '<br>')|safe }}</h2>
 
 
 <p>
@@ -50,11 +50,11 @@ Flip
 </label>
 </p>
 
-<p>{{ card.definition }}</p>
+<p>{{ card.definition|replace('\r\n', '\n')|replace('\r', '\n')|replace('\n', '<br>')|safe }}</p>
 
 <hr>
 
-<p>{{ card.notes }}</p>
+<p>{{ card.notes|replace('\r\n', '\n')|replace('\r', '\n')|replace('\n', '<br>')|safe }}</p>
 
 
 <p>
